@@ -1,6 +1,9 @@
-import React from 'react'
+import PropTypes from 'prop-types';
+import React, { useState } from 'react'
 
-function Header () {
+
+function Header ({onSearch}) {
+    const [textSearch, setTextSearch] = useState([])
     return(
         <>
             <div className="p-4 bg-black flex items-center justify-between">
@@ -15,12 +18,16 @@ function Header () {
                     </nav>
                 </div>
                 <div className="flex items-center space-x-4">
-                    <input className="p-4" type="text" placeholder="Search"></input>
-                    <button className="p-2 text-white bg-red-600">Search</button>
+                    <input className="p-4" type="text" placeholder="Search" onChange={(e) =>setTextSearch(e.target.value)} value={textSearch}></input>
+                    <button className="p-2 text-white bg-red-600" onClick={() => onSearch(textSearch)}>Search</button>
                 </div>
             </div>
         </>
     )
 
+}
+
+Header.propTypes = {
+    onSearch:PropTypes.func.isRequired,
 }
 export default Header;
